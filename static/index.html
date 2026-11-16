@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Based Spam &amp; Scam Call Detection System | Sharda University PBL-1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- ==================== SIDEBAR NAVIGATION ==================== -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <div class="brand-kicker">
+          <span class="pulse-dot"></span>
+          <span>CSCR2600 // PBL-1 SYSTEM</span>
+        </div>
+        <div class="brand-title">CallShield Forensics</div>
+        <div class="brand-subtitle">AI-Based Spam &amp; Scam Call Detection</div>
+      </div>
+
+      <div class="nav-section-label">Core Operations (8 Pages)</div>
+      <ul class="nav-list" id="sidebarNav">
+        <li>
+          <button class="nav-btn active" data-page="page-overview">
+            <span class="nav-index">01</span>
+            <span>Executive Overview</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-btn" data-page="page-predictor">
+            <span class="nav-index">02</span>
+            <span>Live Call Risk Predictor</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-btn" data-page="page-transcript">
+            <span class="nav-index">03</span>
+            <span>Transcript Scam Analyzer</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-btn" data-page="page-community">
+            <span class="nav-index">04</span>
+            <span>Community &amp; Reputation</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-btn" data-page="page-dashboard">
+            <span class="nav-index">05</span>
+            <span>Live Threat Dashboard</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-btn" data-page="page-dataset">
+            <span class="nav-index">06</span>
+            <span>Synthetic Dataset Explorer</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-btn" data-page="page-models">
+            <span class="nav-index">07</span>
+            <span>ML Model Benchmark Lab</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-btn" data-page="page-testing">
+            <span class="nav-index">08</span>
+            <span>Verification &amp; Defect Log</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="academic-badge">Sharda University // CSE</div>
+        <div class="team-list">
+          <div><strong>Silvia Noatia</strong> (2026279652)</div>
+          <div><strong>Fatima Iqbal</strong> (2026187337)</div>
+          <div style="margin-top:4px; color: var(--text-muted);">
+            Section: MG2 &bull; Session 2025–26<br />
+            Mentor: <strong>Prof. Dharmendra Kumar</strong>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN WORKSPACE ==================== -->
+    <div class="main-workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <span class="page-crumb" id="activePageCrumb">01 // EXECUTIVE OVERVIEW &amp; SYSTEM ARCHITECTURE</span>
+        </div>
+        <div class="topbar-right">
+          <div class="formula-pill">
+            Risk Blend: <span>60% ML</span> + <span>25% Community</span> + <span>15% Reputation</span>
+          </div>
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Switch Light / Dark Palette">
+            <span id="themeIcon">&#9788;</span>
+            <span id="themeLabel">Archival Light</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="page-container">
+        <!-- ================================================================
+             PAGE 01: EXECUTIVE OVERVIEW & ARCHITECTURE
+             ================================================================ -->
+        <section class="page-view active" id="page-overview">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Sharda School of Computing Science &amp; Engineering &bull; CSCR2600 PBL-1</div>
+              <h1 class="section-title">
+                AI-Based Spam &amp; Scam <span class="serif-italic">Call Detection System</span>
+              </h1>
+              <p class="section-desc">
+                An explainable, multi-signal machine learning prototype that predicts whether an incoming phone call is
+                <strong>Safe</strong>, <strong>Spam</strong>, or <strong>Scam/Fraud</strong> by combining a trained Random Forest classifier (94.75% accuracy),
+                community-submitted threat reports, historical number reputation, and rule-based call transcript forensics.
+              </p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="switchPage('page-predictor')">Launch Call Risk Predictor &rarr;</button>
+              <button class="btn btn-secondary" onclick="switchPage('page-transcript')">Scan Call Transcript</button>
+              <button class="btn btn-secondary" onclick="switchPage('page-dashboard')">Live Threat Dashboard</button>
+            </div>
+          </div>
+
+          <!-- Instant Caller Quick-Screen Bar -->
+          <div class="quick-check-bar">
+            <div class="font-mono" style="font-size:12px; color:var(--signal-teal); font-weight:700;">INSTANT CALLER SCREEN:</div>
+            <input type="text" id="ov_quick_phone" class="form-input mono" style="max-width:240px;" value="+91-92104-88319" placeholder="+91-XXXXX-XXXXX" />
+            <button class="btn btn-primary btn-xs" style="padding:9px 14px;" onclick="runOverviewQuickCheck()">Quick Screen Number</button>
+            <button class="preset-chip" onclick="document.getElementById('ov_quick_phone').value='+91-92104-88319'; runOverviewQuickCheck()">+91-92104-88319 (Digital Arrest Scam)</button>
+            <button class="preset-chip" onclick="document.getElementById('ov_quick_phone').value='+91-140-8834210'; runOverviewQuickCheck()">+91-140-8834210 (140-Series Spam)</button>
+            <button class="preset-chip" onclick="document.getElementById('ov_quick_phone').value='+91-98104-52391'; runOverviewQuickCheck()">+91-98104-52391 (Verified Safe)</button>
+            <div id="ovQuickCheckResult" style="width:100%; display:none; margin-top:6px;"></div>
+          </div>
+
+          <!-- Top KPI Strip -->
+          <div class="grid-4">
+            <div class="kpi-card">
+              <div class="kpi-label">Best Classifier (Macro-F1)</div>
+              <div class="kpi-value" id="ovBestAcc">94.75%</div>
+              <div class="kpi-sub" id="ovBestModelSub">Random Forest &bull; F1: 0.9400</div>
+            </div>
+            <div class="kpi-card amber">
+              <div class="kpi-label">Synthetic Training Corpus</div>
+              <div class="kpi-value" id="ovDatasetRows">6,000</div>
+              <div class="kpi-sub">15 Behavioral &amp; Carrier Features</div>
+            </div>
+            <div class="kpi-card crimson">
+              <div class="kpi-label">Community Threat Reports</div>
+              <div class="kpi-value" id="ovTotalReports">--</div>
+              <div class="kpi-sub" id="ovWatchlistCount">Live SQLite Reputation Index</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Calls Analyzed in Log</div>
+              <div class="kpi-value" id="ovTotalAnalyzed">--</div>
+              <div class="kpi-sub">Multi-Signal 60 / 25 / 15 Blend</div>
+            </div>
+          </div>
+
+          <div class="grid-asymmetric">
+            <!-- Figure 1 High-Level Context Diagram (Interactive Nodes) -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Figure 1: Interactive System Context Diagram (Click Any Node)</div>
+                <span class="card-tag">Modular Architecture</span>
+              </div>
+              <div class="arch-diagram">
+                <div class="arch-node-top">Streamlit Web App (app.py) &amp; FastAPI Web App (server.py)</div>
+                <div class="arch-arrow">&darr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &darr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &darr;</div>
+                <div class="arch-row-3">
+                  <div class="arch-box teal" onclick="switchPage('page-predictor')" title="Open Live Call Risk Predictor">
+                    Prediction Engine<br /><span class="font-mono" style="font-size:11px;">(prediction.py)</span>
+                  </div>
+                  <div class="arch-box amber" onclick="switchPage('page-predictor')" title="Open Multi-Signal Risk Engine">
+                    Risk Engine<br /><span class="font-mono" style="font-size:11px;">(risk_engine.py)</span>
+                  </div>
+                  <div class="arch-box teal" onclick="switchPage('page-transcript')" title="Open Call Transcript Analyzer">
+                    Transcript Analyzer<br /><span class="font-mono" style="font-size:11px;">(transcript_analyzer.py)</span>
+                  </div>
+                </div>
+                <div class="arch-arrow">&darr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &darr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &darr;</div>
+                <div class="arch-row-3">
+                  <div class="arch-box light" onclick="switchPage('page-models')" title="Open ML Model Benchmark Lab">
+                    ML Model + Pipeline<br /><span class="font-mono" style="font-size:11px;">(models/*.pkl)</span>
+                  </div>
+                  <div class="arch-box light" onclick="switchPage('page-dashboard')" title="Open Live SQLite Threat Dashboard">
+                    SQLite Database<br /><span class="font-mono" style="font-size:11px;">(reports, reputation, log)</span>
+                  </div>
+                  <div class="arch-box light" onclick="switchPage('page-transcript')" title="Inspect 10 Regex Scam Categories">
+                    10 Regex Scam Categories<br /><span class="font-mono" style="font-size:11px;">(Weighted Pattern Rules)</span>
+                  </div>
+                </div>
+                <div class="arch-arrow">&darr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &darr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &darr;</div>
+                <div class="arch-row-3">
+                  <div class="arch-box navy" onclick="switchPage('page-dataset')" title="Open Synthetic Dataset Explorer">
+                    Synthetic Dataset<br /><span class="font-mono" style="font-size:11px;">(data/calls.csv)</span>
+                  </div>
+                  <div class="arch-box navy" onclick="switchPage('page-community')" title="Open Community Reporting & Reputation">
+                    Community Reports<br /><span class="font-mono" style="font-size:11px;">(User Input &amp; Watchlist)</span>
+                  </div>
+                  <div class="arch-box navy" onclick="switchPage('page-transcript')" title="Open Call Transcript Analyzer">
+                    Pasted Call Transcript<br /><span class="font-mono" style="font-size:11px;">(Scam Script Inspection)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Academic & Module Summary + 5-Model Mini Snapshot -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Project Charter &amp; 5-Model Benchmark Summary</div>
+                <span class="card-tag">Session 2025–2026</span>
+              </div>
+              <div id="ovModelsMiniBars" style="margin-bottom:14px;"></div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Module</th>
+                      <th>Design &amp; Algorithm Summary</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-mono" style="color:var(--signal-teal);">data_preprocessing.py</td>
+                      <td>6,000-row synthetic dataset; E.164 <code>+</code> sanitizer; leak-free <code>ColumnTransformer</code> fit strictly on 80% train split.</td>
+                    </tr>
+                    <tr>
+                      <td class="font-mono" style="color:var(--signal-teal);">model_training.py</td>
+                      <td>Trains &amp; compares 5 classifiers (RF, GB, SVM, LR, DT); selects Random Forest by Macro-F1; persists via <code>joblib</code>.</td>
+                    </tr>
+                    <tr>
+                      <td class="font-mono" style="color:var(--signal-teal);">prediction.py</td>
+                      <td>Transforms caller telemetry, outputs Safe/Spam/Scam probabilities, 0–100 ML score, and plain-language reasons.</td>
+                    </tr>
+                    <tr>
+                      <td class="font-mono" style="color:var(--signal-amber);">risk_engine.py</td>
+                      <td>Transparently blends <strong>60% ML</strong> + <strong>25% Community</strong> + <strong>15% Reputation</strong> into one final 0–100 score.</td>
+                    </tr>
+                    <tr>
+                      <td class="font-mono" style="color:var(--signal-teal);">database.py</td>
+                      <td>SQLite storage for <code>community_reports</code>, <code>number_reputation</code>, and <code>call_logs</code>.</td>
+                    </tr>
+                    <tr>
+                      <td class="font-mono" style="color:var(--signal-crimson);">transcript_analyzer.py</td>
+                      <td>Scans transcripts across 10 regex scam categories (OTP, Digital Arrest, urgency, UPI/payment, AnyDesk, KYC).</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="margin-top:12px; padding:11px 14px; border-radius:8px; background:var(--bg-elevated); border:1px solid var(--border-hairline); font-size:12.5px;">
+                <strong>Submitted By:</strong> Silvia Noatia (2026279652 — Designer &amp; Developer) &amp; Fatima Iqbal (2026187337 — Design &amp; Tester)
+                &nbsp;|&nbsp; <strong>Submitted To:</strong> Prof. Dharmendra Kumar, Dept. of CSE, Sharda University.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             PAGE 02: LIVE CALL RISK PREDICTOR
+             ================================================================ -->
+        <section class="page-view" id="page-predictor">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">02 // Prediction Engine (prediction.py) + Multi-Signal Risk Engine (risk_engine.py)</div>
+              <h1 class="section-title">
+                Live Call Risk <span class="serif-italic">Predictor &amp; Explainability</span>
+              </h1>
+              <p class="section-desc">
+                Select a real-world call preset below, randomize a test call, or adjust any of the 15 caller behavioral features
+                (plus optional call transcript fusion). Every prediction logs to SQLite and shows full multi-model consensus.
+              </p>
+            </div>
+            <button class="btn btn-secondary" type="button" onclick="randomizeCallFeatures()">Randomize Call Telemetry</button>
+          </div>
+
+          <div class="preset-strip" id="callPresetStrip"></div>
+
+          <div class="grid-asymmetric">
+            <!-- Left: Caller Behavioral Input Form -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Incoming Caller Telemetry &amp; Optional Transcript Fusion</div>
+                <span class="card-tag">15 Features + Transcript</span>
+              </div>
+              <form id="callPredictForm" onsubmit="handleRunPrediction(event)">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Caller Phone Number (E.164)</label>
+                    <input type="text" id="inp_phone_number" class="form-input mono" value="+91-92104-88319" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Primary Active Classifier</label>
+                    <select id="inp_model_name" class="form-select" onchange="runPredictionRequest(false)">
+                      <option value="Random Forest">Random Forest (Best — 94.75%)</option>
+                      <option value="Gradient Boosting">Gradient Boosting (94.75%)</option>
+                      <option value="SVM">Support Vector Machine (94.50%)</option>
+                      <option value="Logistic Regression">Logistic Regression (94.50%)</option>
+                      <option value="Decision Tree">Decision Tree (93.50%)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Calls in Last 24h</span>
+                      <span class="form-val-badge" id="val_calls_last_24h">38</span>
+                    </label>
+                    <input type="range" id="inp_calls_last_24h" class="form-range" min="1" max="150" value="38" oninput="syncSlider('calls_last_24h')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Calls in Last 7 Days</span>
+                      <span class="form-val-badge" id="val_calls_last_7d">175</span>
+                    </label>
+                    <input type="range" id="inp_calls_last_7d" class="form-range" min="1" max="800" value="175" oninput="syncSlider('calls_last_7d')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Avg Call Duration (sec)</span>
+                      <span class="form-val-badge" id="val_avg_call_duration_sec">290</span>
+                    </label>
+                    <input type="range" id="inp_avg_call_duration_sec" class="form-range" min="3" max="700" value="290" oninput="syncSlider('avg_call_duration_sec')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Initial Pickup Silence (sec)</span>
+                      <span class="form-val-badge" id="val_silence_initial_sec">3.4</span>
+                    </label>
+                    <input type="range" id="inp_silence_initial_sec" class="form-range" min="0" max="6" step="0.05" value="3.4" oninput="syncSlider('silence_initial_sec')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Recipient Answer Rate</span>
+                      <span class="form-val-badge" id="val_answer_rate">0.31</span>
+                    </label>
+                    <input type="range" id="inp_answer_rate" class="form-range" min="0.01" max="1.0" step="0.01" value="0.31" oninput="syncSlider('answer_rate')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Short Hang-up Ratio (&lt;10s)</span>
+                      <span class="form-val-badge" id="val_short_call_ratio">0.46</span>
+                    </label>
+                    <input type="range" id="inp_short_call_ratio" class="form-range" min="0.0" max="1.0" step="0.01" value="0.46" oninput="syncSlider('short_call_ratio')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Unique Recipient Ratio</span>
+                      <span class="form-val-badge" id="val_unique_recipients_ratio">0.96</span>
+                    </label>
+                    <input type="range" id="inp_unique_recipients_ratio" class="form-range" min="0.05" max="1.0" step="0.01" value="0.96" oninput="syncSlider('unique_recipients_ratio')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Prior Complaint Density</span>
+                      <span class="form-val-badge" id="val_prior_complaint_rate">0.86</span>
+                    </label>
+                    <input type="range" id="inp_prior_complaint_rate" class="form-range" min="0.0" max="1.0" step="0.01" value="0.86" oninput="syncSlider('prior_complaint_rate')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Number Age (Days Active)</span>
+                      <span class="form-val-badge" id="val_number_age_days">14</span>
+                    </label>
+                    <input type="range" id="inp_number_age_days" class="form-range" min="1" max="2500" value="14" oninput="syncSlider('number_age_days')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Call Hour of Day (0–23h)</span>
+                      <span class="form-val-badge" id="val_hour_of_day">10</span>
+                    </label>
+                    <input type="range" id="inp_hour_of_day" class="form-range" min="0" max="23" value="10" oninput="syncSlider('hour_of_day')" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Number Prefix Category</label>
+                    <select id="inp_prefix_type" class="form-select">
+                      <option value="Domestic_Mobile">Domestic Mobile (+91-98/99)</option>
+                      <option value="Telemarketing_140">Telemarketing Series (140/160)</option>
+                      <option value="International_VoIP" selected>International VoIP Gateway</option>
+                      <option value="Virtual_DID">Virtual DID Number</option>
+                      <option value="Toll_Free">Toll-Free (1800)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Caller Line Type</label>
+                    <select id="inp_caller_line_type" class="form-select">
+                      <option value="Mobile_SIM">Mobile SIM</option>
+                      <option value="PRI_Trunk">Commercial PRI Trunk</option>
+                      <option value="VoIP_SIP">VoIP SIP Trunk</option>
+                      <option value="Spoofed_CLI" selected>Spoofed CLI</option>
+                      <option value="Landline">PSTN Landline</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Contact Graph Proximity</label>
+                    <select id="inp_in_contact_network" class="form-select">
+                      <option value="Yes">In Address Book (1st Degree)</option>
+                      <option value="Mutual_2nd_Degree">Mutual Contact (2nd Degree)</option>
+                      <option value="No" selected>Not in Contacts</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">STIR/SHAKEN CLI Attestation</label>
+                    <select id="inp_cli_verification_status" class="form-select">
+                      <option value="STIR_SHAKEN_A">Level A (Full Attestation)</option>
+                      <option value="STIR_SHAKEN_B">Level B (Partial Attestation)</option>
+                      <option value="STIR_SHAKEN_C">Level C (Gateway Attestation)</option>
+                      <option value="Unverified" selected>Unverified / Unknown</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group full">
+                    <label class="form-label">
+                      <span>Optional Live Call Transcript Snippet (Multi-Modal Fusion)</span>
+                      <span class="font-mono" style="font-size:11px; color:var(--text-muted);">Leave blank for behavioral-only scoring</span>
+                    </label>
+                    <textarea id="inp_call_transcript_fusion" class="form-textarea" rows="2" placeholder="Optional: Paste what the caller is saying to fuse transcript analysis with caller telemetry..."></textarea>
+                  </div>
+
+                  <div class="form-group full" style="margin-top:4px;">
+                    <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">
+                      Evaluate Multi-Signal Call Risk &amp; Log to SQLite
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right: Multi-Signal Risk Verdict & Plain-Language Explainability -->
+            <div>
+              <div id="predictionResultBox"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             PAGE 03: CALL TRANSCRIPT SCAM ANALYZER
+             ================================================================ -->
+        <section class="page-view" id="page-transcript">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">03 // Rule-Based NLP &amp; Regex Pattern Engine (transcript_analyzer.py)</div>
+              <h1 class="section-title">
+                Call Transcript <span class="serif-italic">Scam Script Forensics</span>
+              </h1>
+              <p class="section-desc">
+                Scans pasted or uploaded call transcripts against 10 regex-based scam-indicator categories (OTP harvesting, Digital Arrest threats,
+                payment demands, AnyDesk remote access, KYC suspension, urgency coercion) with inline phrase highlighting.
+              </p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <label class="btn btn-secondary" style="cursor:pointer;">
+                Upload .txt Transcript
+                <input type="file" accept=".txt" style="display:none;" onchange="handleTranscriptFileUpload(event)" />
+              </label>
+              <button class="btn btn-primary" onclick="sendTranscriptToPredictor()">Fuse with Call Predictor &rarr;</button>
+            </div>
+          </div>
+
+          <div class="preset-strip" id="transcriptPresetStrip"></div>
+
+          <div class="grid-asymmetric">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Pasted Call Transcript Input</div>
+                <span class="card-tag" id="transcriptWordCountBadge">0 words</span>
+              </div>
+              <textarea id="inp_transcript_text" class="form-textarea" rows="7" placeholder="Paste call transcript here to scan for scam script indicators..." oninput="runTranscriptAnalysis()"></textarea>
+              <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+                <button class="btn btn-primary" onclick="runTranscriptAnalysis()">Scan Transcript Against 10 Scam Categories</button>
+                <button class="btn btn-secondary" onclick="copyTranscriptReport()">Copy Forensic Report</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('inp_transcript_text').value=''; runTranscriptAnalysis();">Clear Text</button>
+              </div>
+              <div id="transcriptCopyFeedback" style="margin-top:8px;"></div>
+
+              <div style="margin-top:20px;">
+                <div class="card-header" style="margin-bottom:10px;">
+                  <div class="card-title">Inline Forensic Phrase Highlighting</div>
+                  <span class="card-tag">Matched Regex Spans</span>
+                </div>
+                <div class="transcript-annotated-box" id="transcriptHighlightOutput"></div>
+              </div>
+            </div>
+
+            <div>
+              <div id="transcriptScoreCard"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             PAGE 04: COMMUNITY REPORTING & NUMBER REPUTATION
+             ================================================================ -->
+        <section class="page-view" id="page-community">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">04 // Crowdsourced Threat Intelligence &amp; SQLite Reputation (database.py)</div>
+              <h1 class="section-title">
+                Community Reporting &amp; <span class="serif-italic">Number Reputation</span>
+              </h1>
+              <p class="section-desc">
+                Search historical reputation and incident reports for any phone number, confirm existing reports with 1-click upvotes,
+                or submit a new community report to dynamically recalculate the caller's SQLite reputation score.
+              </p>
+            </div>
+            <a href="/api/export/community_reports" class="btn btn-secondary" download>Export Community Reports CSV</a>
+          </div>
+
+          <div class="grid-2">
+            <!-- Left: Number Reputation Lookup -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Lookup Number Reputation &amp; Confirm Reports</div>
+                <span class="card-tag">SQLite Query</span>
+              </div>
+              <div style="display:flex; gap:10px; margin-bottom:14px;">
+                <input type="text" id="lookup_phone_input" class="form-input mono" value="+91-92104-88319" placeholder="+91-XXXXX-XXXXX" />
+                <button class="btn btn-primary" onclick="lookupPhoneReputation()">Search DB</button>
+              </div>
+              <div class="preset-strip" style="margin-bottom:14px;">
+                <button class="preset-chip" onclick="quickLookup('+91-92104-88319')">+91-92104-88319 (Scam)</button>
+                <button class="preset-chip" onclick="quickLookup('+92-300-4918204')">+92-300-4918204 (Fraud)</button>
+                <button class="preset-chip" onclick="quickLookup('+91-140-8834210')">+91-140-8834210 (Spam)</button>
+                <button class="preset-chip" onclick="quickLookup('+91-81309-44102')">+91-81309-44102 (KYC Scam)</button>
+                <button class="preset-chip" onclick="quickLookup('+91-98104-52391')">+91-98104-52391 (Safe)</button>
+              </div>
+              <div id="reputationLookupResult"></div>
+            </div>
+
+            <!-- Right: Submit Community Report Form -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Submit Community Report</div>
+                <span class="card-tag">Live SQLite Update</span>
+              </div>
+              <form id="submitReportForm" onsubmit="handleSubmitCommunityReport(event)">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Caller Phone Number</label>
+                    <input type="text" id="rep_phone" class="form-input mono" value="+91-81309-44102" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Classification Category</label>
+                    <select id="rep_category" class="form-select">
+                      <option value="Scam">Scam / Fraud Attempt</option>
+                      <option value="Spam">Spam / Telemarketing</option>
+                      <option value="Safe">Safe / Verified Legitimate</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Incident Subtype</label>
+                    <select id="rep_subtype" class="form-select">
+                      <option value="Bank KYC / OTP Phishing">Bank KYC / OTP Phishing</option>
+                      <option value="Digital Arrest / CBI & Customs Impersonation">Digital Arrest / CBI &amp; Customs Impersonation</option>
+                      <option value="UPI / QR Code Payment Trap">UPI / QR Code Payment Trap</option>
+                      <option value="Remote Access (AnyDesk / TeamViewer) Scam">Remote Access (AnyDesk / TeamViewer) Scam</option>
+                      <option value="Electricity / Utility Disconnection Scam">Electricity / Utility Disconnection Scam</option>
+                      <option value="Lottery / KBC Prize Fraud">Lottery / KBC Prize Fraud</option>
+                      <option value="Unsolicited Loan & Credit Card Telemarketing">Unsolicited Loan &amp; Credit Card Telemarketing</option>
+                      <option value="Verified Personal / Institutional Contact">Verified Personal / Institutional Contact</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Claimed Identity / Organization</label>
+                    <input type="text" id="rep_identity" class="form-input" placeholder="e.g. Fake SBI KYC Officer / FedEx Customs" value="SBI KYC Verification Desk" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">
+                      <span>Threat Severity (1–5)</span>
+                      <span class="form-val-badge" id="val_rep_severity">5</span>
+                    </label>
+                    <input type="range" id="rep_severity" class="form-range" min="1" max="5" value="5" oninput="document.getElementById('val_rep_severity').textContent=this.value" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Reporter Region</label>
+                    <input type="text" id="rep_region" class="form-input" value="Greater Noida, Delhi NCR" />
+                  </div>
+                  <div class="form-group full">
+                    <label class="form-label">Detailed Incident Notes</label>
+                    <textarea id="rep_comment" class="form-textarea" rows="3" placeholder="Describe what the caller asked for...">Caller claimed my bank account would be frozen today and asked for a 6-digit OTP and AnyDesk installation.</textarea>
+                  </div>
+                  <div class="form-group full">
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Submit Report &amp; Update Reputation Index</button>
+                  </div>
+                </div>
+              </form>
+              <div id="reportSubmitFeedback" style="margin-top:12px;"></div>
+            </div>
+          </div>
+
+          <!-- Global Community Threat Feed Explorer -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Global Community Threat Feed Explorer (SQLite <code>community_reports</code>)</div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <select id="feedFilterCategory" class="form-select" style="width:140px;" onchange="loadGlobalReportsFeed()">
+                  <option value="All">All Categories</option>
+                  <option value="Scam">Scam Only</option>
+                  <option value="Spam">Spam Only</option>
+                  <option value="Safe">Safe Only</option>
+                </select>
+                <input type="text" id="feedSearchInput" class="form-input" style="width:220px;" placeholder="Search phone, subtype, region..." oninput="loadGlobalReportsFeed()" />
+              </div>
+            </div>
+            <div class="table-wrap" id="globalReportsFeedTable"></div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             PAGE 05: LIVE THREAT INTELLIGENCE DASHBOARD
+             ================================================================ -->
+        <section class="page-view" id="page-dashboard">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">05 // SQLite Telemetry &amp; Audit Trail (call_logs, community_reports, number_reputation)</div>
+              <h1 class="section-title">
+                Live Threat Intelligence <span class="serif-italic">Operations Dashboard</span>
+              </h1>
+              <p class="section-desc">
+                Real-time aggregation of all analyzed calls, community threat reports, and blacklisted high-risk numbers stored in SQLite.
+                Click any phone number to inspect its full reputation dossier.
+              </p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-primary" id="simStreamBtn" onclick="simulateIncomingCallStream()">+ Simulate 5 Live Incoming Calls</button>
+              <a href="/api/export/call_logs" class="btn btn-secondary" download>Export Audit Log CSV</a>
+              <button class="btn btn-secondary" onclick="loadDashboardData()">Refresh Telemetry</button>
+            </div>
+          </div>
+
+          <div id="simStreamBanner" style="display:none; margin-bottom:18px;"></div>
+
+          <div class="grid-4" id="dashKpiGrid"></div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">High-Risk Watchlist &amp; Number Reputation</div>
+                <span class="card-tag">Click Number to Inspect</span>
+              </div>
+              <div class="table-wrap" id="dashWatchlistTable"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Community Incident Category Breakdown</div>
+                <span class="card-tag">Reported Subtypes</span>
+              </div>
+              <div id="dashSubtypeChart"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Recent Analyzed Calls Audit Log (SQLite <code>call_logs</code>)</div>
+              <span class="card-tag">60% ML + 25% Community + 15% Reputation</span>
+            </div>
+            <div class="table-wrap" id="dashCallLogsTable"></div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             PAGE 06: SYNTHETIC DATASET EXPLORER
+             ================================================================ -->
+        <section class="page-view" id="page-dataset">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">06 // Reproducible 6,000-Row Corpus (data/calls.csv)</div>
+              <h1 class="section-title">
+                Synthetic Dataset <span class="serif-italic">&amp; Feature Explorer</span>
+              </h1>
+              <p class="section-desc">
+                Inspect class-conditional feature distributions, 10&times;10 Pearson correlation matrix, leak-free preprocessing pipeline,
+                and browse all 6,000 rows with search and pagination.
+              </p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+              <select id="datasetFilterLabel" class="form-select" style="width:160px;" onchange="resetAndLoadDataset()">
+                <option value="All">All Classes (6,000)</option>
+                <option value="Safe">Safe Calls Only</option>
+                <option value="Spam">Spam Calls Only</option>
+                <option value="Scam">Scam Calls Only</option>
+              </select>
+              <input type="text" id="datasetSearchInput" class="form-input" style="width:200px;" placeholder="Filter phone / prefix..." oninput="resetAndLoadDataset()" />
+              <a href="/api/dataset/download" class="btn btn-primary" download>Download calls.csv</a>
+            </div>
+          </div>
+
+          <div class="grid-3" id="datasetClassCards"></div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Interactive Feature Distribution by Class (12-Bin Histogram)</div>
+                <select id="datasetHistFeature" class="form-select" style="width:220px;" onchange="loadDatasetData()">
+                  <option value="calls_last_24h">Calls in Last 24h</option>
+                  <option value="calls_last_7d">Calls in Last 7 Days</option>
+                  <option value="avg_call_duration_sec">Avg Call Duration (s)</option>
+                  <option value="silence_initial_sec">Initial Pickup Silence (s)</option>
+                  <option value="short_call_ratio">Short Hang-up Ratio</option>
+                  <option value="answer_rate">Recipient Answer Rate</option>
+                  <option value="unique_recipients_ratio">Unique Recipient Ratio</option>
+                  <option value="number_age_days">Number Age (Days)</option>
+                  <option value="prior_complaint_rate">Prior Complaint Rate</option>
+                  <option value="hour_of_day">Hour of Day (0-23)</option>
+                </select>
+              </div>
+              <div id="datasetHistogramBox"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Class-Conditional Feature Means (Safe vs. Spam vs. Scam)</div>
+                <span class="card-tag">10 Numeric Features</span>
+              </div>
+              <div class="table-wrap" id="datasetMeansTable"></div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">10&times;10 Numeric Feature Correlation Matrix (Pearson <em>r</em>)</div>
+                <span class="card-tag">Collinearity Check</span>
+              </div>
+              <div class="table-wrap" id="datasetCorrMatrixBox"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Leak-Free Preprocessing Pipeline Specification</div>
+                <span class="card-tag">ColumnTransformer</span>
+              </div>
+              <div id="datasetPipelineSpec"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Interactive Dataset Browser (<code>data/calls.csv</code>)</div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <span class="card-tag" id="datasetSampleCountTag">Showing rows</span>
+                <button class="btn btn-secondary btn-xs" onclick="changeDatasetPage(-1)">&larr; Prev</button>
+                <button class="btn btn-secondary btn-xs" onclick="changeDatasetPage(1)">Next &rarr;</button>
+              </div>
+            </div>
+            <div class="table-wrap" id="datasetRowsTable"></div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             PAGE 07: ML MODEL COMPARISON & BENCHMARK LAB
+             ================================================================ -->
+        <section class="page-view" id="page-models">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">07 // Supervised Classifier Comparison on 80/20 Stratified Split (model_training.py)</div>
+              <h1 class="section-title">
+                ML Model Comparison <span class="serif-italic">&amp; Evaluation Lab</span>
+              </h1>
+              <p class="section-desc">
+                Five classifiers trained on 4,800 rows and evaluated on the 1,200-row held-out test set.
+                <strong>Random Forest</strong> is selected as the best model by Macro-F1 (0.9400) and Accuracy (94.75%).
+              </p>
+            </div>
+            <button class="btn btn-primary" id="retrainBtn" onclick="retrainAllModels()">Re-Train &amp; Verify All 5 Models</button>
+          </div>
+
+          <div class="card" style="margin-bottom:22px;">
+            <div class="card-header">
+              <div class="card-title">Classifier Benchmark Table (Held-Out Test Set: N = 1,200)</div>
+              <span class="card-tag">Sorted by Macro-F1</span>
+            </div>
+            <div class="table-wrap" id="modelsBenchmarkTable"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Random Forest Feature Importance Ranking</div>
+                <span class="card-tag">Top Predictive Signals</span>
+              </div>
+              <div id="modelsFeatureImportanceBox"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Confusion Matrix &amp; Per-Class Precision/Recall/F1 Inspector</div>
+                <select id="cmModelSelect" class="form-select" style="width:210px;" onchange="renderSelectedConfusionMatrix()"></select>
+              </div>
+              <div id="modelsConfusionMatrixBox"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             PAGE 08: SYSTEM TESTING, EDGE CASES & DEFECT LOG
+             ================================================================ -->
+        <section class="page-view" id="page-testing">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">08 // Quality Assurance, Edge-Case Verification &amp; Defect Resolution (test_suite.py)</div>
+              <h1 class="section-title">
+                System Verification <span class="serif-italic">&amp; Defect Log</span>
+              </h1>
+              <p class="section-desc">
+                Executes live unit and edge-case tests across all 6 Python modules (including leading <code>+</code> phone number parsing,
+                zero-report reputation fallback, and leak-free preprocessing) plus an interactive Edge-Case Sandbox.
+              </p>
+            </div>
+            <button class="btn btn-primary" onclick="runLiveTestSuite()">Run All 10 Verification Checks Now</button>
+          </div>
+
+          <div id="testSuiteSummaryBanner"></div>
+
+          <!-- Interactive Edge-Case Sandbox -->
+          <div class="card" style="margin-bottom:22px;">
+            <div class="card-header">
+              <div class="card-title">Interactive Edge-Case Sandbox (Test Defect Fixes Live)</div>
+              <span class="card-tag">Live Diagnostic Probe</span>
+            </div>
+            <div class="grid-3" style="margin-bottom:12px;">
+              <div class="form-group">
+                <label class="form-label">Raw / Malformed Phone Input (Defect #1)</label>
+                <input type="text" id="edge_raw_phone" class="form-input mono" value="'+91 (981) 045-2391" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Unseen Categorical Prefix (Defect #2)</label>
+                <input type="text" id="edge_unseen_prefix" class="form-input mono" value="Satellite_Global_Gateway" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Overlapping Regex Transcript (Defect #4)</label>
+                <input type="text" id="edge_transcript" class="form-input" value="Share your 6-digit OTP verification code within 10 minutes." />
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="runEdgeCaseSandbox()">Execute Edge-Case Probe</button>
+            <div id="edgeSandboxOutput" style="margin-top:14px;"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Live Automated Unit &amp; Edge-Case Checks</div>
+                <span class="card-tag">10 Test Cases</span>
+              </div>
+              <div id="testChecksList"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Development Defect Log &amp; Verification Record</div>
+                <span class="card-tag">Section 9 Methodology</span>
+              </div>
+              <div id="defectLogList"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="static/standalone-engine.js"></script>
+  <script src="static/app.js"></script>
+</body>
+</html>

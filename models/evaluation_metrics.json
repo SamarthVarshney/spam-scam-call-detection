@@ -1,0 +1,303 @@
+{
+  "best_model_name": "Random Forest",
+  "best_accuracy": 0.9475,
+  "best_f1_macro": 0.94,
+  "best_roc_auc": 0.9675,
+  "dataset_rows": 6000,
+  "train_rows": 4800,
+  "test_rows": 1200,
+  "class_distribution": {
+    "Safe": 3120,
+    "Spam": 1680,
+    "Scam": 1200
+  },
+  "classes": [
+    "Safe",
+    "Spam",
+    "Scam"
+  ],
+  "models": [
+    {
+      "model_name": "Random Forest",
+      "accuracy": 0.9475,
+      "precision_macro": 0.9344,
+      "recall_macro": 0.9463,
+      "f1_macro": 0.94,
+      "f1_weighted": 0.9478,
+      "roc_auc_macro": 0.9675,
+      "train_time_sec": 0.432,
+      "confusion_matrix": [
+        [
+          590,
+          13,
+          21
+        ],
+        [
+          6,
+          324,
+          6
+        ],
+        [
+          6,
+          11,
+          223
+        ]
+      ],
+      "per_class": {
+        "Safe": {
+          "precision": 0.9801,
+          "recall": 0.9455,
+          "f1": 0.9625
+        },
+        "Spam": {
+          "precision": 0.931,
+          "recall": 0.9643,
+          "f1": 0.9474
+        },
+        "Scam": {
+          "precision": 0.892,
+          "recall": 0.9292,
+          "f1": 0.9102
+        }
+      }
+    },
+    {
+      "model_name": "Gradient Boosting",
+      "accuracy": 0.9475,
+      "precision_macro": 0.9344,
+      "recall_macro": 0.9463,
+      "f1_macro": 0.94,
+      "f1_weighted": 0.9478,
+      "roc_auc_macro": 0.9718,
+      "train_time_sec": 1.784,
+      "confusion_matrix": [
+        [
+          590,
+          13,
+          21
+        ],
+        [
+          6,
+          324,
+          6
+        ],
+        [
+          6,
+          11,
+          223
+        ]
+      ],
+      "per_class": {
+        "Safe": {
+          "precision": 0.9801,
+          "recall": 0.9455,
+          "f1": 0.9625
+        },
+        "Spam": {
+          "precision": 0.931,
+          "recall": 0.9643,
+          "f1": 0.9474
+        },
+        "Scam": {
+          "precision": 0.892,
+          "recall": 0.9292,
+          "f1": 0.9102
+        }
+      }
+    },
+    {
+      "model_name": "SVM",
+      "accuracy": 0.945,
+      "precision_macro": 0.9308,
+      "recall_macro": 0.9429,
+      "f1_macro": 0.9366,
+      "f1_weighted": 0.9454,
+      "roc_auc_macro": 0.9664,
+      "train_time_sec": 0.751,
+      "confusion_matrix": [
+        [
+          590,
+          13,
+          21
+        ],
+        [
+          6,
+          322,
+          8
+        ],
+        [
+          6,
+          12,
+          222
+        ]
+      ],
+      "per_class": {
+        "Safe": {
+          "precision": 0.9801,
+          "recall": 0.9455,
+          "f1": 0.9625
+        },
+        "Spam": {
+          "precision": 0.928,
+          "recall": 0.9583,
+          "f1": 0.9429
+        },
+        "Scam": {
+          "precision": 0.8845,
+          "recall": 0.925,
+          "f1": 0.9043
+        }
+      }
+    },
+    {
+      "model_name": "Logistic Regression",
+      "accuracy": 0.945,
+      "precision_macro": 0.9308,
+      "recall_macro": 0.9429,
+      "f1_macro": 0.9366,
+      "f1_weighted": 0.9454,
+      "roc_auc_macro": 0.9643,
+      "train_time_sec": 0.035,
+      "confusion_matrix": [
+        [
+          590,
+          13,
+          21
+        ],
+        [
+          6,
+          322,
+          8
+        ],
+        [
+          6,
+          12,
+          222
+        ]
+      ],
+      "per_class": {
+        "Safe": {
+          "precision": 0.9801,
+          "recall": 0.9455,
+          "f1": 0.9625
+        },
+        "Spam": {
+          "precision": 0.928,
+          "recall": 0.9583,
+          "f1": 0.9429
+        },
+        "Scam": {
+          "precision": 0.8845,
+          "recall": 0.925,
+          "f1": 0.9043
+        }
+      }
+    },
+    {
+      "model_name": "Decision Tree",
+      "accuracy": 0.935,
+      "precision_macro": 0.9177,
+      "recall_macro": 0.9295,
+      "f1_macro": 0.9232,
+      "f1_weighted": 0.9356,
+      "roc_auc_macro": 0.9659,
+      "train_time_sec": 0.021,
+      "confusion_matrix": [
+        [
+          590,
+          12,
+          22
+        ],
+        [
+          6,
+          314,
+          16
+        ],
+        [
+          9,
+          13,
+          218
+        ]
+      ],
+      "per_class": {
+        "Safe": {
+          "precision": 0.9752,
+          "recall": 0.9455,
+          "f1": 0.9601
+        },
+        "Spam": {
+          "precision": 0.9263,
+          "recall": 0.9345,
+          "f1": 0.9304
+        },
+        "Scam": {
+          "precision": 0.8516,
+          "recall": 0.9083,
+          "f1": 0.879
+        }
+      }
+    }
+  ],
+  "feature_importances": [
+    {
+      "feature": "prior_complaint_rate",
+      "importance": 0.1681
+    },
+    {
+      "feature": "number_age_days",
+      "importance": 0.1329
+    },
+    {
+      "feature": "calls_last_7d",
+      "importance": 0.1093
+    },
+    {
+      "feature": "calls_last_24h",
+      "importance": 0.1086
+    },
+    {
+      "feature": "unique_recipients_ratio",
+      "importance": 0.0868
+    },
+    {
+      "feature": "avg_call_duration_sec",
+      "importance": 0.0794
+    },
+    {
+      "feature": "silence_initial_sec",
+      "importance": 0.0709
+    },
+    {
+      "feature": "short_call_ratio",
+      "importance": 0.066
+    },
+    {
+      "feature": "answer_rate",
+      "importance": 0.0447
+    },
+    {
+      "feature": "prefix_type",
+      "importance": 0.0335
+    },
+    {
+      "feature": "cli_verification_status",
+      "importance": 0.0298
+    },
+    {
+      "feature": "caller_line_type",
+      "importance": 0.028
+    },
+    {
+      "feature": "in_contact_network",
+      "importance": 0.0227
+    },
+    {
+      "feature": "hour_of_day",
+      "importance": 0.0107
+    },
+    {
+      "feature": "time_bucket",
+      "importance": 0.0087
+    }
+  ]
+}
